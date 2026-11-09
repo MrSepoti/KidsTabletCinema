@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mando Padres - MiniCine</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      padding: 16px;
+      background: #0f172a;
+      color: #f8fafc;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    }
+    h1 {
+      margin: 0 0 8px 0;
+      font-size: 22px;
+      color: #38bdf8;
+    }
+    p.sub {
+      margin: 0 0 16px 0;
+      font-size: 14px;
+      color: #94a3b8;
+    }
+    .target-selector {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 16px;
+    }
+    .target-btn {
+      flex: 1;
+      padding: 12px;
+      border-radius: 10px;
+      border: 2px solid #334155;
+      background: #1e293b;
+      color: #fff;
+      font-weight: bold;
+      font-size: 15px;
+      cursor: pointer;
+    }
+    .target-btn.active {
+      background: #0284c7;
+      border-color: #38bdf8;
+    }
+    .search-row {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 16px;
+    }
+    .search-row input {
+      flex: 1;
+      padding: 12px;
+      border-radius: 10px;
+      border: 1px solid #334155;
+      background: #1e293b;
+      color: #fff;
+      font-size: 16px;
+    }
+    .search-row button {
+      padding: 12px 18px;
+      border-radius: 10px;
+      border: none;
+      background: #10b981;
+      color: #fff;
+      font-weight: bold;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    .quick-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+    .quick-btn {
+      padding: 14px 10px;
+      border-radius: 12px;
+      border: none;
+      color: #fff;
+      font-weight: bold;
+      font-size: 15px;
+      cursor: pointer;
+      text-align: left;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .results-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .result-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: #1e293b;
+      padding: 10px;
+      border-radius: 12px;
+      border: 1px solid #334155;
+    }
+    .result-item img {
+      width: 100px;
+      height: 60px;
+      object-fit: cover;
+      border-radius: 8px;
+    }
+    .result-info {
+      flex: 1;
+      font-size: 14px;
+      font-weight: 600;
+    }
+    .send-btn {
+      padding: 10px 14px;
+      background: #f59e0b;
+      color: #0f172a;
+      border: none;
+      border-radius: 8px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    #toast {
+      display: none;
+      position: fixed;
+      bottom: 20px;
+      left: 20px;
+      right: 20px;
+      background: #10b981;
+      color: #fff;
+      padding: 14px;
+      border-radius: 12px;
+      text-align: center;
+      font-weight: bold;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.5);
+    }
+  </style>
+</head>
+<body>
+  <!-- PANTALLA DE PIN FAMILIAR -->
+  <div id="pin-overlay" style="display:none; position:fixed; top:0; left:0; right:0; bottom:0; background:#0f172a; z-index:99999; text-align:center; padding-top:20%;">
+    <div style="font-size:48px;">🔒</div>
+    <h2 style="color:#38bdf8;">Mando Padres Protegido</h2>
+    <p style="color:#94a3b8;">Introduce el PIN familiar una sola vez:</p>
+    <input type="tel" id="pin-input" maxlength="4" placeholder="PIN" style="font-size:28px; text-align:center; width:150px; padding:10px; border-radius:10px; border:2px solid #38bdf8; background:#1e293b; color:#fff; font-weight:bold;">
+    <div style="margin-top:14px;">
+      <button onclick="submitPin()" style="padding:12px 28px; font-size:18px; font-weight:bold; background:#10b981; color:#fff; border:none; border-radius:10px;">Desbloquear</button>
+    </div>
+    <p id="pin-err" style="color:#ef4444; display:none; font-weight:bold;">❌ PIN incorrecto</p>
+  </div>
+
+  <h1>🚗 Mando Asiento Delantero</h1>
+  <p class="sub">Elige a qué iPad enviar los dibujos sin girarte en el coche:</p>
+
+  <div class="target-selector">
+    <button class="target-btn active" id="btn-both" onclick="setTarget('both')">📱📱 Los Dos</button>
+    <button class="target-btn" id="btn-ipad1" onclick="setTarget('ipad1')">📱 Pantalla #1</button>
+    <button class="target-btn" id="btn-ipad2" onclick="setTarget('ipad2')">📱 Pantalla #2</button>
+  </div>
+
+  <div class="target-selector" style="margin-bottom: 10px;">
+    <button class="target-btn" style="background:#eab308; color:#0f172a; border:none;" onclick="sendAction('pause')">⏸️ Pausar</button>
+    <button class="target-btn" style="background:#22c55e; color:#0f172a; border:none;" onclick="sendAction('resume')">▶️ Seguir</button>
+    <button class="target-btn" style="background:#3b82f6; color:#fff; border:none;" onclick="sendAction('next')">⏭️ Siguiente</button>
+    <button class="target-btn" style="background:#ef4444; color:#fff; border:none;" onclick="sendAction('stop')">🌙 Pantalla Negra</button>
+  </div>
+
+  <div class="target-selector" style="margin-bottom: 16px;">
+    <button class="target-btn" style="background:#7c3aed; color:#fff; border:none;" onclick="sendAction('lock')">🔒 Bloquear Toques</button>
+    <button class="target-btn" style="background:#0ea5e9; color:#fff; border:none;" onclick="sendAction('unlock')">☀️ Encender / Desbloquear</button>
+  </div>
+
+  <div class="search-row">
+    <input type="text" id="q" placeholder="Buscar serie o peli (ej. Bluey, Vaiana)...">
+    <button onclick="searchCustom()">Buscar</button>
+  </div>
+
+  <div class="quick-grid">
+    <button class="quick-btn" style="background:#1e88e5" onclick="quickSearch('Bluey capitulos completos español castellano')">🐶 Bluey</button>
+    <button class="quick-btn" style="background:#e53935" onclick="quickSearch('Patrulla Canina capitulos completos español castellano')">🐾 Patrulla Canina</button>
+    <button class="quick-btn" style="background:#d81b60" onclick="quickSearch('La Casa de Mickey Mouse capitulos completos español castellano')">🐭 Mickey Mouse</button>
+    <button class="quick-btn" style="background:#ec407a" onclick="quickSearch('Peppa Pig Español Oficial capitulos completos castellano')">🐷 Peppa Pig</button>
+    <button class="quick-btn" style="background:#c62828" onclick="quickSearch('Spidey y su superequipo español castellano Disney Junior')">🕷️ Spidey</button>
+    <button class="quick-btn" style="background:#039be5" onclick="quickSearch('Pocoyo español castellano capitulos completos')">💙 Pocoyó</button>
+    <button class="quick-btn" style="background:#8e24aa" onclick="quickSearch('La casa de muñecas de Gabby capitulos completos español castellano')">🐱 Gabby</button>
+    <button class="quick-btn" style="background:#00897b" onclick="loadLiveChannels()">📺 Canales TV 24h</button>
+    <button class="quick-btn" style="background:#0284c7; grid-column: span 2;" onclick="loadJellyfin()">🏠 Mi Biblioteca Jellyfin (Películas del Servidor)</button>
+  </div>
+
+  <div id="results" class="results-list"></div>
+  <div id="toast">✅ ¡Enviado al iPad!</div>
+
+  <script>
+    let target = 'both';
+    let currentItems = [];
+    let savedPin = localStorage.getItem('minicine_pin') || '';
+
+    async function checkPin() {
+      const m = window.location.search.match(/[?&]pin=([0-9]+)/);
+      if (m) {
+        savedPin = m[1];
+        localStorage.setItem('minicine_pin', savedPin);
+      }
+      if (!savedPin) {
+        document.getElementById('pin-overlay').style.display = 'block';
+        return;
+      }
+      const res = await fetch('/api/auth?pin=' + encodeURIComponent(savedPin));
+      if (res.ok) {
+        document.cookie = 'minicine_pin=' + encodeURIComponent(savedPin) + '; path=/; max-age=315360000';
+        document.getElementById('pin-overlay').style.display = 'none';
+      } else {
+        document.getElementById('pin-overlay').style.display = 'block';
+      }
+    }
+
+    async function submitPin() {
+      const val = document.getElementById('pin-input').value.trim();
+      const res = await fetch('/api/auth?pin=' + encodeURIComponent(val));
+      if (res.ok) {
+        savedPin = val;
+        localStorage.setItem('minicine_pin', savedPin);
+        document.cookie = 'minicine_pin=' + encodeURIComponent(savedPin) + '; path=/; max-age=315360000';
+        document.getElementById('pin-overlay').style.display = 'none';
+        document.getElementById('pin-err').style.display = 'none';
+      } else {
+        document.getElementById('pin-err').style.display = 'block';
+      }
+    }
+
+    function withPin(url) {
+      return url + (url.includes('?') ? '&' : '?') + 'pin=' + encodeURIComponent(savedPin);
+    }
+
+    checkPin();
+
+    function setTarget(t) {
+      target = t;
+      ['both', 'ipad1', 'ipad2'].forEach(id => {
+        document.getElementById('btn-' + id).className = (id === t) ? 'target-btn active' : 'target-btn';
+      });
+    }
+
+    async function quickSearch(q) {
+      document.getElementById('results').innerHTML = '<p>⏳ Buscando episodios...</p>';
+      const res = await fetch(withPin('/api/search?q=' + encodeURIComponent(q)));
+      const data = await res.json();
+      currentItems = data.items || [];
+      renderResults();
+    }
+
+    async function loadLiveChannels() {
+      document.getElementById('results').innerHTML = '<p>⏳ Cargando canales en directo...</p>';
+      const res = await fetch(withPin('/api/livetv'));
+      const data = await res.json();
+      currentItems = data.items || [];
+      renderResults();
+    }
+
+    async function loadJellyfin() {
+      document.getElementById('results').innerHTML = '<p>⏳ Leyendo biblioteca de Jellyfin...</p>';
+      const res = await fetch(withPin('/api/jellyfin'));
+      const data = await res.json();
+      currentItems = data.items || [];
+      renderResults();
+    }
+
+    function searchCustom() {
+      const q = document.getElementById('q').value.trim();
+      if (!q) return;
+      quickSearch(q + ' español castellano infantil');
+    }
+
+    function renderResults() {
+      const box = document.getElementById('results');
+      box.innerHTML = currentItems.map((it, idx) => `
+        <div class="result-item">
+          <img src="${it.thumb || '/api/thumb?id=' + it.id}" alt="">
+          <div class="result-info">${it.title}<br><small style="color:#94a3b8">${it.duration || ''}</small></div>
+          <button class="send-btn" onclick="sendToIpad(${idx})">▶️ Poner</button>
+        </div>
+      `).join('');
+    }
+
+    async function sendToIpad(idx) {
+      const item = currentItems[idx];
+      await fetch(withPin('/api/remote/send'), {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ target, action: 'play', item })
+      });
+      showToast('✅ ¡Enviado a la pantalla!');
+    }
+
+    async function sendAction(action) {
+      await fetch(withPin('/api/remote/send'), {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ target, action })
+      });
+      showToast('✅ Orden enviada: ' + action.toUpperCase());
+    }
+
+    function showToast(msg) {
+      const toast = document.getElementById('toast');
+      toast.textContent = msg;
+      toast.style.display = 'block';
+      setTimeout(() => { toast.style.display = 'none'; }, 2000);
+    }
+  </script>
+</body>
+</html>

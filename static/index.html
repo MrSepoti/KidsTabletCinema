@@ -1,0 +1,776 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="MiniCine">
+  <title>MiniCine Kids</title>
+  <style type="text/css">
+    * {
+      -webkit-box-sizing: border-box;
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: rgba(0,0,0,0);
+      -webkit-touch-callout: none;
+      -webkit-user-select: none;
+      user-select: none;
+    }
+    html, body {
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      height: 100%;
+      background-color: #111625;
+      color: #ffffff;
+      font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+      overflow-x: hidden;
+    }
+    /* Banner para desbloquear Auto-Play en iOS con 1 toque */
+    #unlock-banner {
+      background-color: #2e7d32;
+      color: #ffffff;
+      text-align: center;
+      padding: 14px 12px;
+      font-size: 18px;
+      font-weight: bold;
+      border-bottom: 3px solid #81c784;
+      cursor: pointer;
+    }
+    /* Cabecera fija */
+    .header {
+      background-color: #1a2238;
+      padding: 12px 16px;
+      border-bottom: 2px solid #2b3856;
+      display: -webkit-box;
+      display: -webkit-flex;
+      display: flex;
+      -webkit-box-align: center;
+      -webkit-align-items: center;
+      align-items: center;
+      -webkit-box-pack: justify;
+      -webkit-justify-content: space-between;
+      justify-content: space-between;
+    }
+    .logo {
+      font-size: 22px;
+      font-weight: bold;
+      color: #ffcc00;
+      cursor: pointer;
+    }
+    .device-badge {
+      background-color: #2b3856;
+      color: #a3b8e8;
+      padding: 6px 12px;
+      border-radius: 20px;
+      font-size: 13px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    .nav-tabs {
+      display: -webkit-box;
+      display: -webkit-flex;
+      display: flex;
+    }
+    .tab-btn {
+      background-color: #26314d;
+      color: #ffffff;
+      border: 2px solid #3a4b72;
+      padding: 8px 14px;
+      margin-left: 8px;
+      border-radius: 12px;
+      font-size: 15px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    .tab-btn.active {
+      background-color: #ff5722;
+      border-color: #ff8a65;
+    }
+    /* Barra de búsqueda */
+    .search-bar {
+      padding: 12px 16px;
+      background-color: #161d30;
+      display: -webkit-box;
+      display: -webkit-flex;
+      display: flex;
+    }
+    .search-input {
+      -webkit-box-flex: 1;
+      -webkit-flex: 1;
+      flex: 1;
+      padding: 12px 16px;
+      font-size: 18px;
+      border-radius: 12px;
+      border: 2px solid #3a4b72;
+      background-color: #0d111d;
+      color: #ffffff;
+      -webkit-user-select: text;
+      user-select: text;
+    }
+    .search-btn {
+      margin-left: 10px;
+      padding: 12px 22px;
+      font-size: 18px;
+      font-weight: bold;
+      background-color: #00b0ff;
+      color: #ffffff;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+    }
+
+    /* REPRODUCTOR A PANTALLA COMPLETA AUTOMÁTICA (MODO CINE) */
+    #player-container {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      width: 100%;
+      height: 100%;
+      background-color: #000000;
+      z-index: 9999;
+    }
+    #video-player {
+      width: 100%;
+      height: 88%;
+      background-color: #000000;
+      display: block;
+    }
+    .player-controls {
+      height: 12%;
+      min-height: 48px;
+      background-color: #111625;
+      padding: 6px 14px;
+      border-top: 2px solid #2b3856;
+      display: -webkit-box;
+      display: -webkit-flex;
+      display: flex;
+      -webkit-box-pack: justify;
+      -webkit-justify-content: space-between;
+      justify-content: space-between;
+      -webkit-box-align: center;
+      -webkit-align-items: center;
+      align-items: center;
+    }
+    .now-playing-title {
+      font-size: 15px;
+      font-weight: bold;
+      color: #ffcc00;
+      text-align: left;
+      -webkit-box-flex: 1;
+      -webkit-flex: 1;
+      flex: 1;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      margin-right: 10px;
+    }
+    .player-btn {
+      background-color: #e53935;
+      color: #ffffff;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 10px;
+      font-size: 15px;
+      font-weight: bold;
+      margin-left: 8px;
+      cursor: pointer;
+    }
+    .player-btn.next-btn {
+      background-color: #43a047;
+    }
+    .player-btn.pause-btn {
+      background-color: #ffb300;
+      color: #111625;
+    }
+
+    /* Cuadrícula de personajes gigantes (3 y 5 años) */
+    .section-title {
+      padding: 14px 16px 4px 16px;
+      font-size: 20px;
+      font-weight: bold;
+      color: #ffd54f;
+    }
+    .grid {
+      display: -webkit-box;
+      display: -webkit-flex;
+      display: flex;
+      -webkit-flex-wrap: wrap;
+      flex-wrap: wrap;
+      padding: 8px;
+    }
+    .hero-card {
+      width: 31%;
+      margin: 1.1%;
+      border-radius: 18px;
+      padding: 18px 10px;
+      text-align: center;
+      cursor: pointer;
+      border: 3px solid rgba(255,255,255,0.25);
+      box-shadow: 0 4px 10px rgba(0,0,0,0.4);
+    }
+    .hero-icon {
+      font-size: 52px;
+      line-height: 60px;
+      display: block;
+      margin-bottom: 8px;
+    }
+    .hero-name {
+      font-size: 20px;
+      font-weight: bold;
+      color: #ffffff;
+      text-shadow: 0 2px 4px rgba(0,0,0,0.6);
+      display: block;
+    }
+    .hero-sub {
+      font-size: 13px;
+      color: rgba(255,255,255,0.9);
+      margin-top: 4px;
+      display: block;
+    }
+
+    /* Tarjetas de vídeos/episodios */
+    .video-card {
+      width: 48%;
+      margin: 1%;
+      background-color: #1c253d;
+      border-radius: 14px;
+      overflow: hidden;
+      border: 2px solid #2e3d63;
+      cursor: pointer;
+    }
+    .video-thumb-wrap {
+      position: relative;
+      width: 100%;
+      height: 165px;
+      background-color: #0d111d;
+    }
+    .video-thumb {
+      width: 100%;
+      height: 165px;
+      object-fit: cover;
+      display: block;
+    }
+    .video-duration {
+      position: absolute;
+      bottom: 8px;
+      right: 8px;
+      background-color: rgba(0,0,0,0.85);
+      color: #ffcc00;
+      padding: 4px 8px;
+      border-radius: 6px;
+      font-size: 14px;
+      font-weight: bold;
+    }
+    .video-info {
+      padding: 12px;
+    }
+    .video-title {
+      font-size: 16px;
+      font-weight: bold;
+      color: #ffffff;
+      line-height: 1.3;
+      max-height: 42px;
+      overflow: hidden;
+    }
+
+    /* Estado de carga */
+    #loading-box {
+      display: none;
+      text-align: center;
+      padding: 40px 20px;
+      font-size: 22px;
+      color: #ffcc00;
+      font-weight: bold;
+    }
+
+    /* Botón de volver grande */
+    .back-bar {
+      padding: 10px 16px;
+      display: -webkit-box;
+      display: -webkit-flex;
+      display: flex;
+      -webkit-box-align: center;
+      -webkit-align-items: center;
+      align-items: center;
+      -webkit-box-pack: justify;
+      -webkit-justify-content: space-between;
+      justify-content: space-between;
+    }
+    .big-back-btn {
+      background-color: #ff9800;
+      color: #111625;
+      border: none;
+      padding: 12px 22px;
+      border-radius: 12px;
+      font-size: 18px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    .play-all-btn {
+      background-color: #4caf50;
+      color: #ffffff;
+      border: none;
+      padding: 12px 22px;
+      border-radius: 12px;
+      font-size: 18px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    @media (max-width: 600px) {
+      .hero-card { width: 47%; }
+      .video-card { width: 98%; }
+    }
+  </style>
+</head>
+<body onclick="unlockMediaOnFirstTap()">
+
+  <!-- PANTALLA DE PIN FAMILIAR (SOLO PIDE EL PIN LA PRIMERA VEZ) -->
+  <div id="pin-overlay" style="display:none; position:fixed; top:0; left:0; right:0; bottom:0; width:100%; height:100%; background:#0f172a; z-index:100000; text-align:center; padding-top:12%;">
+    <div style="font-size:48px; margin-bottom:10px;">🔒</div>
+    <div style="font-size:24px; font-weight:bold; color:#ffcc00; margin-bottom:8px;">MiniCine Familiar</div>
+    <div style="font-size:15px; color:#94a3b8; margin-bottom:20px;">Introduce el PIN una sola vez para autorizar esta pantalla:</div>
+    <input type="tel" id="pin-input" placeholder="PIN" maxlength="4" style="font-size:28px; text-align:center; width:160px; padding:12px; border-radius:12px; border:2px solid #38bdf8; background:#1e293b; color:#fff; font-weight:bold; -webkit-user-select:text; user-select:text;" onkeypress="if(event.keyCode===13) submitPin()">
+    <div style="margin-top:16px;">
+      <button onclick="submitPin()" style="padding:12px 32px; font-size:20px; font-weight:bold; background:#22c55e; color:#0f172a; border:none; border-radius:12px; cursor:pointer;">Entrar</button>
+    </div>
+    <div id="pin-error" style="color:#ef4444; font-weight:bold; margin-top:12px; display:none;">❌ PIN incorrecto</div>
+  </div>
+
+  <!-- BANNER DE ACTIVACIÓN DE AUTOPLAY EN IOS -->
+  <div id="unlock-banner" onclick="unlockMediaOnFirstTap()">
+    🚗 TOCA AQUÍ UNA VEZ AL EMPEZAR EL VIAJE PARA ACTIVAR EL CONTROL REMOTO AUTOMÁTICO
+  </div>
+
+  <!-- ESCUDO INVISIBLE ANTI-TOQUES Y PANTALLA NEGRA (CONTROLADO DESDE /PADRES) -->
+  <div id="touch-shield" style="display:none; position:fixed; top:0; left:0; right:0; bottom:0; width:100%; height:100%; z-index:99999; background:rgba(0,0,0,0);"></div>
+  <div id="blackout-screen" style="display:none; position:fixed; top:0; left:0; right:0; bottom:0; width:100%; height:100%; z-index:99998; background:#000000; color:#334155; text-align:center; padding-top:45%; font-size:15px; cursor:pointer;" onclick="this.style.display='none'; unlockMediaOnFirstTap();">
+    🌙 Pantalla en descanso (Toca aquí o desde el móvil de los padres para encender)
+  </div>
+
+  <!-- CABECERA -->
+  <div class="header">
+    <div class="logo" onclick="showHome()">🍿 MiniCine</div>
+    <div class="device-badge" id="device-badge" onclick="toggleDeviceId()">Pantalla #1</div>
+    <div class="nav-tabs">
+      <button class="tab-btn active" id="tab-shows" onclick="showHome()">🎨 Dibujos</button>
+      <button class="tab-btn" id="tab-movies" onclick="loadCategory('peliculas', '🎬 Películas Disney / Pixar / Infantiles')">🎬 Pelis</button>
+      <button class="tab-btn" id="tab-tv" onclick="showLiveTV()">📺 TV</button>
+      <button class="tab-btn" id="tab-jf" onclick="showJellyfin()">🏠 Jellyfin</button>
+    </div>
+  </div>
+
+  <!-- REPRODUCTOR DE VÍDEO A PANTALLA COMPLETA AUTOMÁTICA -->
+  <div id="player-container">
+    <video id="video-player" controls autoplay playsinline webkit-playsinline></video>
+    <div class="player-controls">
+      <div class="now-playing-title" id="now-playing-label">Cargando vídeo...</div>
+      <button class="player-btn pause-btn" onclick="togglePlayPause()">⏯️ Pausa/Play</button>
+      <button class="player-btn next-btn" onclick="playNextVideo()">⏭️ Siguiente</button>
+      <button class="player-btn" onclick="closePlayer()">✖ Salir</button>
+    </div>
+  </div>
+
+  <!-- BUSCADOR -->
+  <div class="search-bar">
+    <input type="text" id="search-input" class="search-input" placeholder="Buscar dibujos o película (ej. Cars, Vaiana, Peppa)..." onkeypress="if(event.keyCode===13) doSearch()">
+    <button class="search-btn" onclick="doSearch()">🔍 Buscar</button>
+  </div>
+
+  <!-- INDICADOR DE CARGA -->
+  <div id="loading-box">⏳ Preparando los dibujos... ¡Un segundo!</div>
+
+  <!-- VISTA PRINCIPAL (PERSONAJES GIGANTES) -->
+  <div id="home-view">
+    <div class="section-title">👇 ¡Toca tu dibujo favorito para empezar!</div>
+    <div class="grid" id="heroes-grid"></div>
+  </div>
+
+  <!-- VISTA DE RESULTADOS / EPISODIOS -->
+  <div id="results-view" style="display:none;">
+    <div class="back-bar">
+      <button class="big-back-btn" onclick="showHome()">⬅️ Volver a los Dibujos</button>
+      <button class="play-all-btn" onclick="playVideoAtIndex(0)">▶️ ¡Reproducir Todo Seguido!</button>
+    </div>
+    <div class="section-title" id="results-title">Episodios</div>
+    <div class="grid" id="results-grid"></div>
+  </div>
+
+  <script type="text/javascript">
+    var currentPlaylist = [];
+    var currentIndex = -1;
+    var deviceId = localStorage.getItem('minicine_device_id') || 'ipad1';
+    var savedPin = localStorage.getItem('minicine_pin') || '';
+    var lastRemoteCommandId = 0;
+    var mediaUnlocked = false;
+
+    function getUrlPin() {
+      var m = window.location.search.match(/[?&]pin=([0-9]+)/);
+      return m ? m[1] : '';
+    }
+
+    function checkPinOnLoad() {
+      var urlPin = getUrlPin();
+      if (urlPin) {
+        savedPin = urlPin;
+        localStorage.setItem('minicine_pin', savedPin);
+      }
+      if (!savedPin) {
+        document.getElementById('pin-overlay').style.display = 'block';
+        return;
+      }
+      verifyAndSavePin(savedPin, false);
+    }
+
+    function submitPin() {
+      var val = document.getElementById('pin-input').value;
+      verifyAndSavePin(val, true);
+    }
+
+    function verifyAndSavePin(pinVal, showErr) {
+      var xhr = new XMLHttpRequest();
+      xhr.open('GET', '/api/auth?pin=' + encodeURIComponent(pinVal), true);
+      xhr.onreadystatechange = function() {
+        if (xhr.readyState === 4) {
+          if (xhr.status === 200) {
+            savedPin = pinVal;
+            localStorage.setItem('minicine_pin', savedPin);
+            document.cookie = 'minicine_pin=' + encodeURIComponent(savedPin) + '; path=/; max-age=315360000';
+            document.getElementById('pin-overlay').style.display = 'none';
+            document.getElementById('pin-error').style.display = 'none';
+          } else {
+            localStorage.removeItem('minicine_pin');
+            savedPin = '';
+            document.getElementById('pin-overlay').style.display = 'block';
+            if (showErr) {
+              document.getElementById('pin-error').style.display = 'block';
+            }
+          }
+        }
+      };
+      xhr.send();
+    }
+
+    function appendPin(url) {
+      var sep = (url.indexOf('?') === -1) ? '?' : '&';
+      return url + sep + 'pin=' + encodeURIComponent(savedPin);
+    }
+
+    var HEROES = [
+      { id: 'bluey', name: 'Bluey', sub: 'Capítulos en Castellano', icon: '🐶', bg: '#1e88e5', query: 'Bluey capitulos completos español castellano' },
+      { id: 'patrulla', name: 'Patrulla Canina', sub: 'Paw Patrol Español', icon: '🐾', bg: '#e53935', query: 'Patrulla Canina capitulos completos español castellano Nick Jr' },
+      { id: 'mickey', name: 'La Casa de Mickey', sub: 'Disney Junior Español', icon: '🐭', bg: '#d81b60', query: 'La Casa de Mickey Mouse capitulos completos español castellano Disney Junior' },
+      { id: 'peppa', name: 'Peppa Pig', sub: 'Capítulos en Castellano', icon: '🐷', bg: '#ec407a', query: 'Peppa Pig Español Oficial capitulos completos castellano' },
+      { id: 'spidey', name: 'Spidey', sub: 'Y su superequipo', icon: '🕷️', bg: '#c62828', query: 'Spidey y su superequipo español castellano Disney Junior capitulos' },
+      { id: 'gabby', name: 'Casa de Gabby', sub: 'Netflix Kids Español', icon: '🐱', bg: '#8e24aa', query: 'La casa de muñecas de Gabby capitulos completos español castellano' },
+      { id: 'frozen', name: 'Frozen y Disney', sub: 'Princesas y Cuentos', icon: '❄️', bg: '#00acc1', query: 'Frozen español castellano Disney cuentos canciones capitulos' },
+      { id: 'pocoyo', name: 'Pocoyó', sub: 'Especial 3 años', icon: '💙', bg: '#039be5', query: 'Pocoyo español castellano capitulos completos' },
+      { id: 'masha', name: 'Masha y el Oso', sub: 'Capítulos en Español', icon: '🐻', bg: '#fb8c00', query: 'Masha y el Oso español castellano capitulos completos' },
+      { id: 'cars', name: 'Rayo McQueen', sub: 'Cars y Camiones', icon: '🏎️', bg: '#f4511e', query: 'Cars Rayo McQueen español castellano Disney Pixar cortos capitulos' },
+      { id: 'granja', name: 'Granja de Zenón', sub: 'Canciones Infantiles', icon: '🐮', bg: '#43a047', query: 'La Granja de Zenon CantaJuego canciones infantiles español' },
+      { id: 'pelis', name: 'Pelis Completas', sub: 'Cine Infantil Español', icon: '🍿', bg: '#5e35b1', query: 'pelicula infantil animacion completa en español castellano' }
+    ];
+
+    // Desbloquea el elemento <video> en iOS Safari para que acepte órdenes remotas de Play y Pantalla Completa
+    function unlockMediaOnFirstTap() {
+      if (mediaUnlocked) return;
+      mediaUnlocked = true;
+      var banner = document.getElementById('unlock-banner');
+      if (banner) {
+        banner.style.display = 'none';
+      }
+      var v = document.getElementById('video-player');
+      try {
+        v.muted = false;
+        var p = v.play();
+        if (p && p.then) {
+          p.then(function() { v.pause(); }).catch(function() {});
+        } else {
+          v.pause();
+        }
+      } catch (e) {}
+    }
+
+    function updateDeviceBadge() {
+      var badge = document.getElementById('device-badge');
+      badge.innerHTML = (deviceId === 'ipad1') ? '📱 Pantalla #1' : '📱 Pantalla #2';
+    }
+
+    function toggleDeviceId() {
+      deviceId = (deviceId === 'ipad1') ? 'ipad2' : 'ipad1';
+      localStorage.setItem('minicine_device_id', deviceId);
+      updateDeviceBadge();
+    }
+
+    function renderHeroes() {
+      var grid = document.getElementById('heroes-grid');
+      var html = '';
+      for (var i = 0; i < HEROES.length; i++) {
+        var h = HEROES[i];
+        html += '<div class="hero-card" style="background-color:' + h.bg + ';" onclick="selectHero(' + i + ')">' +
+                  '<span class="hero-icon">' + h.icon + '</span>' +
+                  '<span class="hero-name">' + h.name + '</span>' +
+                  '<span class="hero-sub">' + h.sub + '</span>' +
+                '</div>';
+      }
+      grid.innerHTML = html;
+    }
+
+    function selectHero(idx) {
+      var h = HEROES[idx];
+      searchVideos(h.query, h.icon + ' ' + h.name);
+    }
+
+    function setActiveTab(tabId) {
+      var ids = ['tab-shows', 'tab-movies', 'tab-tv', 'tab-jf'];
+      for (var i = 0; i < ids.length; i++) {
+        var el = document.getElementById(ids[i]);
+        if (ids[i] === tabId) {
+          el.className = 'tab-btn active';
+        } else {
+          el.className = 'tab-btn';
+        }
+      }
+    }
+
+    function showHome() {
+      setActiveTab('tab-shows');
+      document.getElementById('loading-box').style.display = 'none';
+      document.getElementById('results-view').style.display = 'none';
+      document.getElementById('home-view').style.display = 'block';
+    }
+
+    function loadCategory(type, title) {
+      setActiveTab('tab-movies');
+      searchVideos('pelicula completa español castellano dibujos animacion infantil', title);
+    }
+
+    function doSearch() {
+      var q = document.getElementById('search-input').value;
+      if (!q) return;
+      searchVideos(q + ' español castellano infantil', '🔍 Resultados: ' + q);
+    }
+
+    function searchVideos(query, title) {
+      document.getElementById('home-view').style.display = 'none';
+      document.getElementById('results-view').style.display = 'none';
+      document.getElementById('loading-box').style.display = 'block';
+
+      var xhr = new XMLHttpRequest();
+      xhr.open('GET', appendPin('/api/search?q=' + encodeURIComponent(query)), true);
+      xhr.onreadystatechange = function() {
+        if (xhr.readyState === 4) {
+          document.getElementById('loading-box').style.display = 'none';
+          if (xhr.status === 200) {
+            var data = JSON.parse(xhr.responseText);
+            currentPlaylist = data.items || [];
+            renderPlaylist(title, currentPlaylist);
+          } else {
+            showHome();
+          }
+        }
+      };
+      xhr.send();
+    }
+
+    function showLiveTV() {
+      setActiveTab('tab-tv');
+      document.getElementById('home-view').style.display = 'none';
+      document.getElementById('results-view').style.display = 'none';
+      document.getElementById('loading-box').style.display = 'block';
+
+      var xhr = new XMLHttpRequest();
+      xhr.open('GET', appendPin('/api/livetv'), true);
+      xhr.onreadystatechange = function() {
+        if (xhr.readyState === 4) {
+          document.getElementById('loading-box').style.display = 'none';
+          if (xhr.status === 200) {
+            var data = JSON.parse(xhr.responseText);
+            currentPlaylist = data.items || [];
+            renderPlaylist('📺 Canales Infantiles en Directo (24h)', currentPlaylist);
+          } else {
+            showHome();
+          }
+        }
+      };
+      xhr.send();
+    }
+
+    function showJellyfin() {
+      setActiveTab('tab-jf');
+      document.getElementById('home-view').style.display = 'none';
+      document.getElementById('results-view').style.display = 'none';
+      document.getElementById('loading-box').style.display = 'block';
+
+      var xhr = new XMLHttpRequest();
+      xhr.open('GET', appendPin('/api/jellyfin'), true);
+      xhr.onreadystatechange = function() {
+        if (xhr.readyState === 4) {
+          document.getElementById('loading-box').style.display = 'none';
+          if (xhr.status === 200) {
+            var data = JSON.parse(xhr.responseText);
+            currentPlaylist = data.items || [];
+            renderPlaylist('🏠 Mi Biblioteca Jellyfin (Películas y Series del Servidor)', currentPlaylist);
+          } else {
+            showHome();
+          }
+        }
+      };
+      xhr.send();
+    }
+
+    function renderPlaylist(title, items) {
+      document.getElementById('results-title').innerHTML = title;
+      var grid = document.getElementById('results-grid');
+      var html = '';
+      for (var i = 0; i < items.length; i++) {
+        var item = items[i];
+        var thumb = item.thumb || '/api/thumb?id=' + encodeURIComponent(item.id);
+        var dur = item.duration || '▶️ Play';
+        html += '<div class="video-card" onclick="playVideoAtIndex(' + i + ')">' +
+                  '<div class="video-thumb-wrap">' +
+                    '<img class="video-thumb" src="' + thumb + '" alt="">' +
+                    '<div class="video-duration">' + dur + '</div>' +
+                  '</div>' +
+                  '<div class="video-info">' +
+                    '<div class="video-title">' + item.title + '</div>' +
+                  '</div>' +
+                '</div>';
+      }
+      grid.innerHTML = html;
+      document.getElementById('results-view').style.display = 'block';
+    }
+
+    function playVideoAtIndex(idx) {
+      if (idx < 0 || idx >= currentPlaylist.length) return;
+      currentIndex = idx;
+      var item = currentPlaylist[idx];
+      playMediaItem(item);
+    }
+
+    function playMediaItem(item) {
+      var container = document.getElementById('player-container');
+      var video = document.getElementById('video-player');
+      var label = document.getElementById('now-playing-label');
+      var banner = document.getElementById('unlock-banner');
+      if (banner) {
+        banner.style.display = 'none';
+      }
+
+      // Abre directamente a pantalla completa (Modo Cine 100% de la ventana)
+      container.style.display = 'block';
+      label.innerHTML = '⏳ Cargando: ' + item.title + '...';
+
+      var rawUrl = item.stream_url ? item.stream_url : ('/api/stream?id=' + encodeURIComponent(item.id));
+      var streamUrl = appendPin(rawUrl);
+      video.src = streamUrl;
+      video.muted = false;
+      video.load();
+
+      // Forzar inicio de reproducción inmediato al cargar metadatos
+      var startPlayback = function() {
+        var p = video.play();
+        if (p && p.catch) {
+          p.catch(function() {});
+        }
+        label.innerHTML = '▶️ Viendo: ' + item.title;
+      };
+      video.onloadedmetadata = startPlayback;
+      video.oncanplay = startPlayback;
+      startPlayback();
+    }
+
+    function togglePlayPause() {
+      var v = document.getElementById('video-player');
+      if (v.paused) {
+        v.play();
+      } else {
+        v.pause();
+      }
+    }
+
+    function playNextVideo() {
+      if (currentPlaylist.length === 0) return;
+      var nextIdx = currentIndex + 1;
+      if (nextIdx >= currentPlaylist.length) {
+        nextIdx = 0;
+      }
+      playVideoAtIndex(nextIdx);
+    }
+
+    function closePlayer() {
+      var video = document.getElementById('video-player');
+      video.pause();
+      video.src = '';
+      document.getElementById('player-container').style.display = 'none';
+    }
+
+    var videoEl = document.getElementById('video-player');
+    videoEl.addEventListener('ended', function() {
+      playNextVideo();
+    }, false);
+
+    // Escuchar órdenes desde el "Mando de Padres" (/padres) cada 1.5 segundos
+    function pollRemoteControl() {
+      if (!savedPin) return;
+      var xhr = new XMLHttpRequest();
+      xhr.open('GET', appendPin('/api/remote/poll?device=' + encodeURIComponent(deviceId) + '&t=' + new Date().getTime()), true);
+      xhr.onreadystatechange = function() {
+        if (xhr.readyState === 4 && xhr.status === 200) {
+          try {
+            var data = JSON.parse(xhr.responseText);
+            if (data.cmd_id && data.cmd_id > lastRemoteCommandId) {
+              if (lastRemoteCommandId !== 0) {
+                var act = data.action || 'play';
+                var v = document.getElementById('video-player');
+                var shield = document.getElementById('touch-shield');
+                var blackout = document.getElementById('blackout-screen');
+                if (act === 'play' && data.item) {
+                  blackout.style.display = 'none';
+                  playMediaItem(data.item);
+                } else if (act === 'pause') {
+                  v.pause();
+                } else if (act === 'resume') {
+                  blackout.style.display = 'none';
+                  var p = v.play();
+                  if (p && p.catch) { p.catch(function() {}); }
+                } else if (act === 'next') {
+                  blackout.style.display = 'none';
+                  playNextVideo();
+                } else if (act === 'stop') {
+                  closePlayer();
+                  blackout.style.display = 'block';
+                } else if (act === 'lock') {
+                  shield.style.display = 'block';
+                  var ctrls = document.querySelector('.player-controls');
+                  if (ctrls) ctrls.style.display = 'none';
+                  v.removeAttribute('controls');
+                  v.style.height = '100%';
+                } else if (act === 'unlock') {
+                  shield.style.display = 'none';
+                  blackout.style.display = 'none';
+                  var ctrls2 = document.querySelector('.player-controls');
+                  if (ctrls2) ctrls2.style.display = '';
+                  v.setAttribute('controls', 'controls');
+                  v.style.height = '88%';
+                }
+              }
+              lastRemoteCommandId = data.cmd_id;
+            }
+          } catch (e) {}
+        }
+      };
+      xhr.send();
+    }
+
+    updateDeviceBadge();
+    renderHeroes();
+    checkPinOnLoad();
+    setInterval(pollRemoteControl, 1500);
+  </script>
+</body>
+</html>

@@ -1,0 +1,123 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 640" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bgGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#0f172a"/>
+      <stop offset="100%" stop-color="#111625"/>
+    </linearGradient>
+    <filter id="shadow" x="-5%" y="-5%" width="110%" height="115%">
+      <feDropShadow dx="0" dy="6" stdDeviation="6" flood-color="#000000" flood-opacity="0.45"/>
+    </filter>
+  </defs>
+
+  <!-- iPad Frame -->
+  <rect x="10" y="10" width="940" height="620" rx="36" fill="#1e293b" stroke="#475569" stroke-width="4"/>
+  <rect x="40" y="34" width="880" height="572" rx="14" fill="url(#bgGrad)"/>
+  <circle cx="935" cy="320" r="10" fill="#0f172a" stroke="#475569" stroke-width="2"/>
+
+  <!-- Top Green Autoplay Banner -->
+  <rect x="40" y="34" width="880" height="38" rx="14" fill="#2e7d32"/>
+  <text x="480" y="58" font-family="Helvetica, Arial, sans-serif" font-size="14" font-weight="bold" fill="#ffffff" text-anchor="middle">
+    🚗 TAP ONCE AT THE START OF THE TRIP TO ENABLE HANDS-FREE REMOTE CONTROL
+  </text>
+
+  <!-- Header -->
+  <rect x="40" y="72" width="880" height="58" fill="#1a2238"/>
+  <line x1="40" y1="130" x2="920" y2="130" stroke="#2b3856" stroke-width="2"/>
+  <text x="64" y="108" font-family="Helvetica, Arial, sans-serif" font-size="22" font-weight="bold" fill="#ffcc00">🍿 KidsTabletCinema</text>
+
+  <!-- Screen Badge -->
+  <rect x="310" y="86" width="130" height="30" rx="15" fill="#2b3856"/>
+  <text x="375" y="106" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="bold" fill="#a3b8e8" text-anchor="middle">📱 Screen #1</text>
+
+  <!-- Nav Tabs -->
+  <rect x="520" y="84" width="92" height="34" rx="10" fill="#ff5722" stroke="#ff8a65" stroke-width="2"/>
+  <text x="566" y="106" font-family="Helvetica, Arial, sans-serif" font-size="14" font-weight="bold" fill="#ffffff" text-anchor="middle">🎨 Shows</text>
+
+  <rect x="620" y="84" width="92" height="34" rx="10" fill="#26314d" stroke="#3a4b72" stroke-width="2"/>
+  <text x="666" y="106" font-family="Helvetica, Arial, sans-serif" font-size="14" font-weight="bold" fill="#ffffff" text-anchor="middle">🎬 Movies</text>
+
+  <rect x="720" y="84" width="86" height="34" rx="10" fill="#26314d" stroke="#3a4b72" stroke-width="2"/>
+  <text x="763" y="106" font-family="Helvetica, Arial, sans-serif" font-size="14" font-weight="bold" fill="#ffffff" text-anchor="middle">📺 Live TV</text>
+
+  <rect x="814" y="84" width="92" height="34" rx="10" fill="#26314d" stroke="#3a4b72" stroke-width="2"/>
+  <text x="860" y="106" font-family="Helvetica, Arial, sans-serif" font-size="14" font-weight="bold" fill="#ffffff" text-anchor="middle">🏠 Jellyfin</text>
+
+  <!-- Search Bar -->
+  <rect x="40" y="132" width="880" height="58" fill="#161d30"/>
+  <rect x="60" y="142" width="720" height="38" rx="10" fill="#0d111d" stroke="#3a4b72" stroke-width="2"/>
+  <text x="80" y="166" font-family="Helvetica, Arial, sans-serif" font-size="15" fill="#64748b">Search cartoons or movies (e.g. Cars, Moana, Peppa)...</text>
+  <rect x="792" y="142" width="110" height="38" rx="10" fill="#00b0ff"/>
+  <text x="847" y="166" font-family="Helvetica, Arial, sans-serif" font-size="15" font-weight="bold" fill="#ffffff" text-anchor="middle">🔍 Search</text>
+
+  <!-- Section Title -->
+  <text x="64" y="218" font-family="Helvetica, Arial, sans-serif" font-size="18" font-weight="bold" fill="#ffd54f">👇 Tap your favorite character to start watching!</text>
+
+  <!-- Grid Row 1 (4 cards) -->
+  <g filter="url(#shadow)">
+    <rect x="60" y="234" width="196" height="110" rx="16" fill="#1e88e5" stroke="#90caf9" stroke-width="2"/>
+    <text x="158" y="278" font-size="36" text-anchor="middle">🐶</text>
+    <text x="158" y="308" font-family="Helvetica, Arial, sans-serif" font-size="18" font-weight="bold" fill="#ffffff" text-anchor="middle">Bluey</text>
+    <text x="158" y="328" font-family="Helvetica, Arial, sans-serif" font-size="12" fill="#e3f2fd" text-anchor="middle">Full Episodes</text>
+
+    <rect x="274" y="234" width="196" height="110" rx="16" fill="#e53935" stroke="#ef9a9a" stroke-width="2"/>
+    <text x="372" y="278" font-size="36" text-anchor="middle">🐾</text>
+    <text x="372" y="308" font-family="Helvetica, Arial, sans-serif" font-size="18" font-weight="bold" fill="#ffffff" text-anchor="middle">Paw Patrol</text>
+    <text x="372" y="328" font-family="Helvetica, Arial, sans-serif" font-size="12" fill="#ffebee" text-anchor="middle">Nick Jr. Marathons</text>
+
+    <rect x="488" y="234" width="196" height="110" rx="16" fill="#d81b60" stroke="#f48fb1" stroke-width="2"/>
+    <text x="586" y="278" font-size="36" text-anchor="middle">🐭</text>
+    <text x="586" y="308" font-family="Helvetica, Arial, sans-serif" font-size="18" font-weight="bold" fill="#ffffff" text-anchor="middle">Mickey Mouse</text>
+    <text x="586" y="328" font-family="Helvetica, Arial, sans-serif" font-size="12" fill="#fce4ec" text-anchor="middle">Disney Junior</text>
+
+    <rect x="702" y="234" width="196" height="110" rx="16" fill="#ec407a" stroke="#f8bbd0" stroke-width="2"/>
+    <text x="800" y="278" font-size="36" text-anchor="middle">🐷</text>
+    <text x="800" y="308" font-family="Helvetica, Arial, sans-serif" font-size="18" font-weight="bold" fill="#ffffff" text-anchor="middle">Peppa Pig</text>
+    <text x="800" y="328" font-family="Helvetica, Arial, sans-serif" font-size="12" fill="#fce4ec" text-anchor="middle">Official Channel</text>
+  </g>
+
+  <!-- Grid Row 2 -->
+  <g filter="url(#shadow)">
+    <rect x="60" y="358" width="196" height="110" rx="16" fill="#c62828" stroke="#ef9a9a" stroke-width="2"/>
+    <text x="158" y="402" font-size="36" text-anchor="middle">🕷️</text>
+    <text x="158" y="432" font-family="Helvetica, Arial, sans-serif" font-size="18" font-weight="bold" fill="#ffffff" text-anchor="middle">Spidey</text>
+    <text x="158" y="452" font-family="Helvetica, Arial, sans-serif" font-size="12" fill="#ffebee" text-anchor="middle">&amp; His Amazing Friends</text>
+
+    <rect x="274" y="358" width="196" height="110" rx="16" fill="#8e24aa" stroke="#ce93d8" stroke-width="2"/>
+    <text x="372" y="402" font-size="36" text-anchor="middle">🐱</text>
+    <text x="372" y="432" font-family="Helvetica, Arial, sans-serif" font-size="18" font-weight="bold" fill="#ffffff" text-anchor="middle">Gabby's Dollhouse</text>
+    <text x="372" y="452" font-family="Helvetica, Arial, sans-serif" font-size="12" fill="#f3e5f5" text-anchor="middle">Full Episodes</text>
+
+    <rect x="488" y="358" width="196" height="110" rx="16" fill="#00acc1" stroke="#80deea" stroke-width="2"/>
+    <text x="586" y="402" font-size="36" text-anchor="middle">❄️</text>
+    <text x="586" y="432" font-family="Helvetica, Arial, sans-serif" font-size="18" font-weight="bold" fill="#ffffff" text-anchor="middle">Frozen &amp; Disney</text>
+    <text x="586" y="452" font-family="Helvetica, Arial, sans-serif" font-size="12" fill="#e0f7fa" text-anchor="middle">Stories &amp; Songs</text>
+
+    <rect x="702" y="358" width="196" height="110" rx="16" fill="#039be5" stroke="#81d4fa" stroke-width="2"/>
+    <text x="800" y="402" font-size="36" text-anchor="middle">💙</text>
+    <text x="800" y="432" font-family="Helvetica, Arial, sans-serif" font-size="18" font-weight="bold" fill="#ffffff" text-anchor="middle">Pocoyo</text>
+    <text x="800" y="452" font-family="Helvetica, Arial, sans-serif" font-size="12" fill="#e1f5fe" text-anchor="middle">Toddlers Special</text>
+  </g>
+
+  <!-- Grid Row 3 -->
+  <g filter="url(#shadow)">
+    <rect x="60" y="482" width="196" height="106" rx="16" fill="#fb8c00" stroke="#ffcc80" stroke-width="2"/>
+    <text x="158" y="524" font-size="34" text-anchor="middle">🐻</text>
+    <text x="158" y="552" font-family="Helvetica, Arial, sans-serif" font-size="17" font-weight="bold" fill="#ffffff" text-anchor="middle">Masha &amp; Bear</text>
+    <text x="158" y="572" font-family="Helvetica, Arial, sans-serif" font-size="12" fill="#fff3e0" text-anchor="middle">Full Compilations</text>
+
+    <rect x="274" y="482" width="196" height="106" rx="16" fill="#f4511e" stroke="#ffab91" stroke-width="2"/>
+    <text x="372" y="524" font-size="34" text-anchor="middle">🏎️</text>
+    <text x="372" y="552" font-family="Helvetica, Arial, sans-serif" font-size="17" font-weight="bold" fill="#ffffff" text-anchor="middle">Lightning McQueen</text>
+    <text x="372" y="572" font-family="Helvetica, Arial, sans-serif" font-size="12" fill="#fbe9e7" text-anchor="middle">Cars &amp; Trucks</text>
+
+    <rect x="488" y="482" width="196" height="106" rx="16" fill="#43a047" stroke="#a5d6a7" stroke-width="2"/>
+    <text x="586" y="524" font-size="34" text-anchor="middle">🐮</text>
+    <text x="586" y="552" font-family="Helvetica, Arial, sans-serif" font-size="17" font-weight="bold" fill="#ffffff" text-anchor="middle">Kids Songs</text>
+    <text x="586" y="572" font-family="Helvetica, Arial, sans-serif" font-size="12" fill="#e8f5e9" text-anchor="middle">Sing-Along</text>
+
+    <rect x="702" y="482" width="196" height="106" rx="16" fill="#5e35b1" stroke="#b39ddb" stroke-width="2"/>
+    <text x="800" y="524" font-size="34" text-anchor="middle">🍿</text>
+    <text x="800" y="552" font-family="Helvetica, Arial, sans-serif" font-size="17" font-weight="bold" fill="#ffffff" text-anchor="middle">Full Movies</text>
+    <text x="800" y="572" font-family="Helvetica, Arial, sans-serif" font-size="12" fill="#ede7f6" text-anchor="middle">Animated Films</text>
+  </g>
+</svg>

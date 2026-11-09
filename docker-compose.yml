@@ -1,0 +1,19 @@
+services:
+  minicine-kids:
+    build: .
+    container_name: minicine-kids
+    restart: unless-stopped
+    ports:
+      - "80:8090/tcp"
+      - "8090:8090/tcp"
+      - "21:2121/tcp"
+      - "30000-30009:30000-30009/tcp"
+    environment:
+      - TZ=${TZ:-Europe/Madrid}
+      - ACCESS_PIN=${ACCESS_PIN:-1234}
+      - HOST_LAN_IP=${HOST_LAN_IP:-192.168.1.100}
+      - DUCKDNS_DOMAIN=${DUCKDNS_DOMAIN:-}
+      - DUCKDNS_TOKEN=${DUCKDNS_TOKEN:-}
+    volumes:
+      - ${MOVIES_PATH:-./media/peliculas}:/media/peliculas:ro
+      - ${SERIES_PATH:-./media/series}:/media/series:ro
