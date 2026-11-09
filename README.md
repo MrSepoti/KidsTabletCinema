@@ -75,6 +75,9 @@ Millions of older tablets—like the **iPad mini 1st Gen (A1455)**, **iPad 2/3/4
 
 ## 🚗 Recommended Car Hardware (Tested Road-Trip Setup)
 
+> 💚 **100% Free & Open-Source — How to Support the Project:**  
+> This software is completely free, open-source, and has zero ads or paywalls. If you want to help keep the project alive at **zero extra cost to you**, you can grab your car mounts/chargers—or **buy anything else you need on Amazon**—by clicking through the affiliate links below, or [buy me a coffee](https://buymeacoffee.com/sepoti)!
+
 To keep the tablets securely mounted at eye level and powered throughout long trips without draining aging batteries, here is the recommended car kit:
 
 | Accessory | Why You Need It | Link |
@@ -147,7 +150,10 @@ Then open:
    * Cuando media hora después quieras volver a ponerles dibujos, tocas **`▶️ Poner`** o **`☀️ Encender / Desbloquear`** desde tu móvil y **la pantalla del iPad vuelve a encenderse sola con los dibujos**.
    * *(Nota de seguridad para la batería: usa `🌙 Pantalla Negra` durante los viajes; si vas a aparcar el coche al sol o guardar los iPads durante semanas entre viaje y viaje, apágalos del todo con un 60-80% de batería y guárdalos en casa).*
 
-### 🛒 Accesorios de Coche Recomendados (Probados)
+### 🛒 Accesorios de Coche Recomendados (Y cómo apoyar el proyecto gratis)
+> 💚 **Proyecto 100% Gratis y de Código Abierto:**  
+> Este software es totalmente gratuito y sin anuncios. Si quieres ayudar a mantener vivo el proyecto **sin que te cueste un céntimo extra**, puedes comprar los accesorios para el coche —o **cualquier otra compra que vayas a hacer en Amazon**— entrando desde estos enlaces de afiliado, o [invitarme a un café](https://buymeacoffee.com/sepoti).
+
 * 💺 [**Soporte Universal de Reposacabezas para iPad / Tablet (4.7" a 13")**](https://www.amazon.es/dp/B0BVLLF99R?tag=mrsepoti-21)
 * ⚡ [**Cargador de Mechero Doble Carga Rápida (USB-C + USB-A metálico)**](https://www.amazon.es/dp/B0BVZFVH7Y?tag=mrsepoti-21)
 * 📱 [**Soporte Secundario Ajustable para Coche**](https://www.amazon.es/dp/B09QHLHG5T?tag=mrsepoti-21)
