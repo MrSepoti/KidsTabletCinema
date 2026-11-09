@@ -7,13 +7,25 @@
 *Zero Jailbreak • 100% ES5 Safari Compatible • Ad-Free Streaming • Jellyfin `.mkv` Live Transcoding • Front-Seat Parent Remote Control*
 
 [![Buy Me A Coffee](https://img.shields.io/badge/Buy%20Me%20a%20Coffee-ffdd00?style=for-the-badge&logo=buy-me-a-coffee&logoColor=black)](https://buymeacoffee.com/sepoti)
+[![YouTube Explainer](https://img.shields.io/badge/YouTube-Watch%205--Min%20Explainer-FF0000?style=for-the-badge&logo=youtube&logoColor=white)](https://youtu.be/_14b6qbA6RM)
 [![Docker Ready](https://img.shields.io/badge/Docker-Ready-2496ED?style=for-the-badge&logo=docker&logoColor=white)](#-quick-start-with-ai-agent-antigravity--claude-code--codex)
 [![iOS 9+ Compatible](https://img.shields.io/badge/Legacy%20iOS-9.3.6%2B%20Supported-000000?style=for-the-badge&logo=apple&logoColor=white)](#-why-old-ipads-fail--how-kidstabletcinema-fixes-them)
 [![Jellyfin Integration](https://img.shields.io/badge/Jellyfin-Live%20HLS-00A4DC?style=for-the-badge&logo=jellyfin&logoColor=white)](#-jellyfin--vlc-offline-mode)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg?style=for-the-badge)](LICENSE)
 
-[**🇬🇧 English Documentation**](#-the-problem) • [**🇪🇸 Documentación en Español**](#-documentación-en-español) • [**🤖 1-Click AI Agent Prompt**](#-quick-start-with-ai-agent-antigravity--claude-code--codex) • [**🚗 Car Hardware Setup**](#-recommended-car-hardware-tested-road-trip-setup)
+[**🎬 Watch Video Explainer**](https://youtu.be/_14b6qbA6RM) • [**🇬🇧 English Documentation**](#-the-problem) • [**🇪🇸 Documentación en Español**](#-documentación-en-español) • [**🤖 1-Click AI Agent Prompt**](#-quick-start-with-ai-agent-antigravity--claude-code--codex) • [**🚗 Car Hardware Setup**](#-recommended-car-hardware-tested-road-trip-setup)
 
+</div>
+
+---
+
+## 🎬 5-Minute Video Explainer (How It Works & Car Demo)
+
+<div align="center">
+  <a href="https://youtu.be/_14b6qbA6RM" target="_blank">
+    <img src="https://img.youtube.com/vi/_14b6qbA6RM/maxresdefault.jpg" alt="Watch the KidsTabletCinema Explainer Video on YouTube" width="760" style="border-radius: 14px;" />
+  </a>
+  <p><em>👆 Click above to watch the full 5-minute animated explainer on YouTube (<a href="https://youtu.be/_14b6qbA6RM">https://youtu.be/_14b6qbA6RM</a>)</em></p>
 </div>
 
 ---
